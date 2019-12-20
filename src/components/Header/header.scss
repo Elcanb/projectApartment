@@ -1,0 +1,29 @@
+@import '../../assets/scss/variables';
+.upperHeader {
+    background: $charcoal;
+    color: #fff;
+    font-size: 13px;
+    line-height: 24px;
+    font-weight: bold;
+    .location {
+        width: 50%;
+    }
+    .contactInfo {
+        display: flex;
+        width: 50%;
+        justify-content: flex-end;
+        p {
+            &:nth-child(1) {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.mainHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}

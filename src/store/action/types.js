@@ -1,0 +1,4 @@
+export const GET_ADVERT = "GET_ADVERT";
+export const ADD_ADVERT = "ADD_ADVERT";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
