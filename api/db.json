@@ -1,0 +1,106 @@
+{
+    "adverts": [{
+            "id": 1,
+            "location": "Nərimanov",
+            "price": 300,
+            "room": 5,
+            "floor": 10,
+            "square": 220
+        },
+        {
+            "id": 2,
+            "location": " Qara Qarayev m.",
+            "price": 155000,
+            "room": 2,
+            "floor": 4,
+            "square": 81.4
+        },
+        {
+            "id": 3,
+            "location": " İnşaatçılar m.",
+            "price": 53000,
+            "room": 1,
+            "floor": 5,
+            "square": 31
+        },
+        {
+            "id": 4,
+            "location": " Azadlıq Prospekti m.",
+            "price": 67500,
+            "room": 2,
+            "floor": 10,
+            "square": 55
+        },
+        {
+            "id": 5,
+            "location": " Nərimanov r.",
+            "price": 300000,
+            "room": 5,
+            "floor": 10,
+            "square": 220
+        },
+        {
+            "id": 6,
+            "location": " Qara Qarayev m.",
+            "price": 155000,
+            "room": 2,
+            "floor": 4,
+            "square": 81.4
+        },
+        {
+            "id": 7,
+            "location": " İnşaatçılar m.",
+            "price": 53000,
+            "room": 1,
+            "floor": 5,
+            "square": 31
+        },
+        {
+            "id": 9,
+            "location": " Nərimanov r.",
+            "price": 300000,
+            "room": 5,
+            "floor": 10,
+            "square": 220
+        },
+        {
+            "id": 10,
+            "location": " Qara Qarayev m.",
+            "price": 155000,
+            "room": 2,
+            "floor": 4,
+            "square": 81.4
+        },
+        {
+            "location": "Yasamal",
+            "price": "120000",
+            "room": "4",
+            "floor": "12",
+            "square": "120",
+            "id": 11
+        },
+        {
+            "location": "Yasamal",
+            "price": "20000",
+            "room": "1",
+            "floor": "1",
+            "square": "30",
+            "id": 12
+        },
+        {
+            "location": "Yasamal",
+            "price": "55000",
+            "room": "2",
+            "floor": "5",
+            "square": "65",
+            "id": 13
+        }
+    ],
+    "user": [{
+        "name": "Elcan",
+        "surname": "Bayramov",
+        "email": "elcan@gmail.com",
+        "password": "123456",
+        "id": 1
+    }]
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import { login } from '../../../store/action/auth'
 import './login.scss'
@@ -28,6 +29,11 @@ class Login extends Component {
     }
 
     render() {
+
+        if (this.props.isAuthenticated) {
+            return <Redirect to='/' />
+        }
+
         return (
             <div className="form-wrapper">
                 <div className="form">
@@ -45,5 +51,9 @@ class Login extends Component {
     }
 }
 
+const mapStataToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
 
-export default connect(null, { login })(Login);
+
+export default connect(mapStataToProps, { login })(Login);

@@ -1,41 +1,38 @@
 import axios from 'axios';
-import { LOGIN_SUCCESS, REGISTER_SUCCESS } from './types';
+import {
+    LOGIN_SUCCESS,
+    REGISTER_SUCCESS,
+    LOGOUT_SUCCESS
+} from './types';
 
 //Login User
 export const login = (email, password) => dispatch => {
 
-    //Headers
-    const config = {
-        headers: {
-            "Content-type": "application/json",
-            "Type": "Basic "
-        }
-    };
+    //const body = JSON.stringify({ email, password });
 
-    const body = JSON.stringify({ email, password });
-
-    axios.post('http://localhost:8080/login', body, config)
+    axios.get('http://localhost:3004/user')
         .then(res => {
-            dispatch({
+
+            const body = res.data.filter(e => e.email === email && e.password === password);
+            body.length ? dispatch({
                 type: LOGIN_SUCCESS,
-                payload: res.data
-            })
+                payload: body
+            }) : console.log("this user not register");
+
         })
 }
 
 //Register User
-export const register = (user) => dispatch => {
+export const register = (name, surname, email, password) => dispatch => {
 
-    //Headers
     const config = {
         headers: {
-            "Content-type": "application/json"
+            "Content-Type": "application/json"
         }
-    };
+    }
+    const body = JSON.stringify({ name, surname, email, password });
 
-    const body = JSON.stringify(user);
-
-    axios.post('http://localhost:8080/register', body, config)
+    axios.post('http://localhost:3004/user', body, config)
         .then(res => {
             dispatch({
                 type: REGISTER_SUCCESS,
@@ -43,3 +40,11 @@ export const register = (user) => dispatch => {
             })
         });
 }
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT_SUCCESS
+    })
+}
+
+

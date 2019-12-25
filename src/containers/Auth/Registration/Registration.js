@@ -22,8 +22,8 @@ class Registration extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const user = this.state
-        this.props.register(user);
+        const { name, surname, email, password } = this.state
+        this.props.register(name, surname, email, password);
         this.setState({
             name: '',
             surname: '',
