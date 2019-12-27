@@ -16,11 +16,11 @@ class Navbar extends Component {
             <ul className="nav">
                 <li className="nav__item">
                     <Link to='/add-advert'>
-                        <button type="button" class="btn btn-outline-dark">Add advert</button>
+                        <button type="button" className="btn btn-outline-dark">Add advert</button>
                     </Link>
                 </li>
                 <li className="nav__item">
-                    <button type="button" class="btn btn-outline-danger"
+                    <button type="button" className="btn btn-outline-danger"
                         onClick={this.props.logout}>
                         Logout
                     </button>

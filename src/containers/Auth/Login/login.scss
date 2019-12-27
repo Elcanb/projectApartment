@@ -1,15 +1,15 @@
 @import '../../../assets/scss/variables.scss';
 .form-wrapper {
-    height: 78vh;
+    min-height: 78vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
     .form {
-        top: 50%;
-        left: 50%;
         width: 500px;
         overflow: hidden;
-        position: absolute;
         background: #fff;
         border-radius: 20px;
-        transform: translate(-50%, -50%);
         box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
         .form__title {
             width: 100%;
@@ -24,30 +24,44 @@
         }
         form {
             padding: 45px;
-            input {
-                border: 0;
-                width: 100%;
-                height: 50px;
-                outline: none;
-                display: block;
-                font-size: 15px;
-                padding: 0 30px;
-                line-height: 1.2;
-                color: #333333;
-                background: #fff;
-                border-radius: 25px;
+            .input-wrapper {
                 margin-bottom: 20px;
-                box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+                input {
+                    border: 0;
+                    width: 100%;
+                    height: 50px;
+                    outline: none;
+                    display: block;
+                    font-size: 15px;
+                    padding: 0 30px;
+                    margin-bottom: 10px;
+                    line-height: 1.2;
+                    color: #333333;
+                    background: #fff;
+                    border-radius: 25px;
+                    box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+                }
+                .error {
+                    color: red;
+                    font-size: 15px;
+                    padding: 0 30px;
+                }
             }
-            .form-btn {
-                padding: 0 25px;
-                cursor: pointer;
-                line-height: 1.5;
-                color: #e0e0e0;
-                margin-top: 30px;
-                margin-bottom: 0;
-                align-items: center;
-                background: $mainOrange;
+            .button-wrapper {
+                text-align: center;
+                .form__btn {
+                    border: 0;
+                    padding: 15px 44px;
+                    cursor: pointer;
+                    line-height: 1.5;
+                    color: #e0e0e0;
+                    margin-top: 10px;
+                    margin-bottom: 0;
+                    align-items: center;
+                    border-radius: 25px;
+                    outline: none;
+                    background: $mainOrange;
+                }
             }
         }
     }

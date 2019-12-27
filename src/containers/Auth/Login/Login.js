@@ -1,59 +1,62 @@
-import React, { Component } from 'react'
+import React from 'react'
+import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import { login } from '../../../store/action/auth'
-import './login.scss'
 
-class Login extends Component {
+const LoginSchema = Yup.object().shape({
+    email: Yup.string()
+        .email('Email is invalid')
+        .required('Email is required'),
+    password: Yup.string().required('Password is required')
+});
 
-    state = {
-        email: '',
-        password: ''
+const Login = ({ login, isAuthenticated }) => {
+
+    if (isAuthenticated) {
+        return <Redirect to='/' />
     }
 
-    handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleSubmit = e => {
-        e.preventDefault();
-        const { email, password } = this.state;
-        this.props.login(email, password);
-        this.setState({
-            email: '',
-            password: ''
-        })
-    }
-
-    render() {
-
-        if (this.props.isAuthenticated) {
-            return <Redirect to='/' />
-        }
-
-        return (
-            <div className="form-wrapper">
-                <div className="form">
-                    <span className="form__title" >
-                        Login
-                        </span>
-                    <form onSubmit={this.handleSubmit}>
-                        <input type="email" name="email" onChange={this.handleChange} value={this.state.email} placeholder="Email" />
-                        <input type="password" name="password" onChange={this.handleChange} value={this.state.password} placeholder="Password" />
-                        <input type="submit" className="form-btn" />
-                    </form>
+    return (
+        <Formik
+            initialValues={{
+                email: '',
+                password: ''
+            }}
+            validationSchema={LoginSchema}
+            onSubmit={(values, { setSubmitting }) => {
+                login(values);
+                setSubmitting(false);
+            }}
+        >
+            {({ isSubmitting, isValid }) => (
+                <div className="form-wrapper">
+                    <div className="form">
+                        <span className="form__title" >Login</span>
+                        <Form>
+                            <div className="input-wrapper">
+                                <Field type='email' name='email' placeholder='Email' />
+                                <ErrorMessage name='email' >{msg => <p className='error'>{msg}</p>}</ErrorMessage>
+                            </div>
+                            <div className="input-wrapper">
+                                <Field type='password' name='password' placeholder='Password' />
+                                <ErrorMessage name='password' >{msg => <p className='error'>{msg}</p>}</ErrorMessage>
+                            </div>
+                            <div className="button-wrapper">
+                                <button disabled={!isValid} type='submit' className='form__btn'>Login</button>
+                            </div>
+                        </Form>
+                    </div>
                 </div>
-            </div>
-        )
-    }
+            )}
+        </Formik>
+    )
 }
 
-const mapStataToProps = state => ({
+const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 })
 
-
-export default connect(mapStataToProps, { login })(Login);
+export default connect(mapStateToProps, { login })(Login)

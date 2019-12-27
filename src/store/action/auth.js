@@ -6,14 +6,14 @@ import {
 } from './types';
 
 //Login User
-export const login = (email, password) => dispatch => {
+export const login = (user) => dispatch => {
 
     //const body = JSON.stringify({ email, password });
 
     axios.get('http://localhost:3004/user')
         .then(res => {
 
-            const body = res.data.filter(e => e.email === email && e.password === password);
+            const body = res.data.filter(e => e.email === user.email && e.password === user.password);
             body.length ? dispatch({
                 type: LOGIN_SUCCESS,
                 payload: body
@@ -23,7 +23,9 @@ export const login = (email, password) => dispatch => {
 }
 
 //Register User
-export const register = (name, surname, email, password) => dispatch => {
+export const register = (user) => dispatch => {
+
+    const { name, surname, email, password } = user;
 
     const config = {
         headers: {

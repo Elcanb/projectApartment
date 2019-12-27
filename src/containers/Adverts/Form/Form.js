@@ -1,74 +1,82 @@
-import React, { Component } from 'react'
+import React from 'react'
+import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import '../../Auth/Login/login.scss'
-import { addAdvert } from '../../../store/action/advert';
+import { addAdvert } from '../../../store/action/advert'
 
-class Form extends Component {
+const errorMsg = 'This field is required';
 
-    state = {
-        location: '',
-        price: '',
-        room: '',
-        floor: '',
-        square: ''
+const RegistrationSchema = Yup.object().shape({
+    location: Yup.string().required(errorMsg),
+    price: Yup.string().required(errorMsg),
+    room: Yup.string().required(errorMsg),
+    floor: Yup.string().required(errorMsg),
+    square: Yup.string().required(errorMsg)
+})
+
+const Registration = ({ addAdvert, isAuthenticated, history }) => {
+
+    if (!isAuthenticated) {
+        return <Redirect to='/login' />
     }
 
-    handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleSubmit = e => {
-        e.preventDefault();
-        const advert = this.state
-        this.props.addAdvert(advert);
-        this.setState({
-            location: '',
-            price: '',
-            room: '',
-            floor: '',
-            square: ''
-        })
-        this.props.history.push('/')
-    }
-
-    render() {
-        if (!this.props.isAuthenticated) {
-            return <Redirect to='/login' />
-        }
-
-        const { location, price, room, floor, square } = this.state;
-        return (
-            <div className="form-wrapper">
-                <div className="form">
-                    <span className="form__title" >
-                        Add your advert
-                </span>
-                    <form onSubmit={this.handleSubmit}>
-                        <input type="text" name="location"
-                            onChange={this.handleChange} placeholder="Location"
-                            value={location} />
-                        <input type="number" name="price"
-                            onChange={this.handleChange} placeholder="Price" value={price} />
-                        <input type="number" name="room"
-                            onChange={this.handleChange} placeholder="Room" value={room} />
-                        <input type="number" name="floor"
-                            onChange={this.handleChange} placeholder="Floor" value={floor} />
-                        <input type="number" name="square"
-                            onChange={this.handleChange} placeholder="Square" value={square} />
-                        <input type="submit" className="form-btn" value="Submit" />
-                    </form>
+    return (
+        <Formik
+            initialValues={{
+                location: '',
+                price: '',
+                room: '',
+                floor: '',
+                square: ''
+            }}
+            validationSchema={RegistrationSchema}
+            onSubmit={(values, { setSubmitting }) => {
+                addAdvert(values);
+                setSubmitting(false);
+                history.push('/');
+            }}
+        >
+            {({ isSubmitting, isValid }) => (
+                <div className="form-wrapper">
+                    <div className="form">
+                        <span className="form__title" > Add your advert </span>
+                        <Form>
+                            <div className="input-wrapper">
+                                <Field type='text' name='location' placeholder='Location' />
+                                <ErrorMessage name='location'>{msg => <p className='error'>{msg}</p>}</ErrorMessage>
+                            </div>
+                            <div className="input-wrapper">
+                                <Field type='text' name='price' placeholder='Price' />
+                                <ErrorMessage name='price'>{msg => <p className='error'>{msg}</p>}</ErrorMessage>
+                            </div>
+                            <div className="input-wrapper">
+                                <Field type='text' name='room' placeholder='Room' />
+                                <ErrorMessage name='room'>{msg => <p className='error'>{msg}</p>}</ErrorMessage>
+                            </div>
+                            <div className="input-wrapper">
+                                <Field type='text' name='floor' placeholder='Floor' />
+                                <ErrorMessage name='floor'>{msg => <p className='error'>{msg}</p>}</ErrorMessage>
+                            </div>
+                            <div className="input-wrapper">
+                                <Field type='text' name='square' placeholder='Square' />
+                                <ErrorMessage name='square'>{msg => <p className='error'>{msg}</p>}</ErrorMessage>
+                            </div>
+                            <div className="button-wrapper">
+                                <button disabled={!isValid} type='submit' className='form__btn'>Submit</button>
+                            </div>
+                        </Form>
+                    </div>
                 </div>
-            </div>
-        )
-    }
+            )}
+        </Formik>
+    )
 }
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, { addAdvert })(Form)
+export default connect(mapStateToProps, { addAdvert })(Registration)
